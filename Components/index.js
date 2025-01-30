@@ -1,12 +1,12 @@
 import Footer from "./Footer";
 import NavBar from "./NavBar";
 import Hero from "./Hero";
-import PupUp from "./PupUp";
+import PopUp from "./PopUp";
 import Card from "./Card";
 import Logo from "./Logo";
-import Menu from "./menu";
+import Menu from "./Menu";
 import ICON from "./ICON";
 import Close from "./Close";
 import Arrow from "./Arrow";
 
-export { NavBar, Footer, Hero, Card, PupUp, Logo, Menu, ICON, Close, Arrow };
+export { NavBar, Footer, Hero, Card, PopUp, Logo, Menu, ICON, Close, Arrow };
