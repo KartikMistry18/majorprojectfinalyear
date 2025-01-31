@@ -60,7 +60,7 @@ const Footer = () => {
         <span> &copy; 2025 Copyright: </span>
         <a
           className="font-semibold"
-          href="https://exchange-proxy-mihir.work-mihirkate.workers.dev/api/v1/klines?symbol=PEPE_USDC&interval=1h&startTime=1737156600&endTime=1737259200"
+          href="https://exchange-proxy-mihir.work-mihirkate.workers.dev/api/v1/markets"
         >
           Crypto King
         </a>

@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { CrowdFundingContext } from "../Context/CroudFunding"; // Fixed spelling
+import { CrowdFundingContext } from "../Context/CrowdFunding"; // Fixed spelling
 import { Logo, Menu } from "../Components/index";
 
 const NavBar = () => {
