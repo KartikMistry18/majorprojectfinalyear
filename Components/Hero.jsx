@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const Hero = ({ titleData, createcampaign }) => {
+const Hero = ({ titleData, createCampaign }) => {
   const [campaign, setCampaign] = useState({
     title: "",
     description: "",
@@ -11,7 +11,7 @@ const Hero = ({ titleData, createcampaign }) => {
   const createNewCampaign = async (e) => {
     e.preventDefault();
     try {
-      await createcampaign(campaign);
+      await createCampaign(campaign);
     } catch (error) {
       console.error("Error creating campaign:", error);
     }
@@ -125,7 +125,7 @@ const Hero = ({ titleData, createcampaign }) => {
                   </div>
                   <button
                     type="submit"
-                    className="w-full h-12 px-6 font-medium tracking-wide text-white rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-800 focus:outline-none focus:shadow-outline"
+                    className="w-full h-12 px-6 font-medium tracking-wide text-purple-accent-700 rounded shadow-md bg-deep-purple-accent-400 hover:bg-deep-purple-accent-800 focus:outline-none focus:shadow-outline"
                   >
                     Create Campaign
                   </button>
