@@ -1,10 +1,11 @@
 import React, { useState, useEffect, createContext } from "react";
 import Web3Modal from "web3modal";
-import { ethers, JsonRpcProvider } from "ethers";
+import { ethers } from "ethers";
 import { CrowdFundingABI, CrowdFundingAddress } from "./contants";
 
-console.log("ethers --> ", ethers);
-console.log("json -->", JsonRpcProvider);
+// Use Alchemy Sepolia URL for RPC provider
+const SEPOLIA_ALCHEMY_URL = "https://eth-sepolia.g.alchemy.com/v2/Lo87KWizL62fSIBcI43XrftyX8Q9Pdc7";
+
 // Helper function to fetch contract instance
 const fetchContract = (signerOrProvider) => {
     return new ethers.Contract(CrowdFundingAddress, CrowdFundingABI, signerOrProvider);
@@ -17,14 +18,14 @@ export const CrowdFundingProvider = ({ children }) => {
     const titleData = "Crowd Funding Contract";
     const [currentAccount, setCurrentAccount] = useState("");
 
-    // Function to create a campaign    
+    // Function to create a campaign
     const createCampaign = async (campaign) => {
         try {
             const { title, description, amount, deadline } = campaign;
             const web3Modal = new Web3Modal();
-            const connection = await web3Modal.connect(); // Added `await`
-            const provider = new ethers.providers.Web3Provider(connection);
-            const signer = provider.getSigner();
+            const connection = await web3Modal.connect();
+            const provider = new ethers.BrowserProvider(connection);
+            const signer = await provider.getSigner();
             const contract = fetchContract(signer);
 
             console.log("Connected account:", currentAccount);
@@ -33,7 +34,7 @@ export const CrowdFundingProvider = ({ children }) => {
                 currentAccount,
                 title,
                 description,
-                ethers.utils.parseUnits(amount, 18),
+                ethers.parseUnits(amount, 18), // ethers.utils.parseUnits(amount, 18) for v5
                 new Date(deadline).getTime()
             );
 
@@ -47,18 +48,22 @@ export const CrowdFundingProvider = ({ children }) => {
     // Fetch all campaigns
     const getCampaigns = async () => {
         try {
-            const provider = new ethers.provider.JsonRpcProvider();
-            const contract = fetchContract(provider);
-            const campaigns = await contract.getCampaigns();
-            console.log("campaigs ", campaigns)
-
+            const provider = new ethers.JsonRpcProvider(SEPOLIA_ALCHEMY_URL);
+            const contract = new ethers.Contract(CrowdFundingAddress, CrowdFundingABI, provider);
+    
+            const campaigns = await contract.getCampaigns(); // Fetch campaigns
+            if (!campaigns || campaigns.length === 0) {
+                console.warn("No campaigns found or contract not responding correctly.");
+                return [];
+            }
+    
             return campaigns.map((campaign, i) => ({
                 owner: campaign.owner,
                 title: campaign.title,
                 description: campaign.description,
-                target: ethers.utils.formatEther(campaign.target.toString()),
+                target: ethers.formatEther(campaign.target.toString()),
                 deadline: campaign.deadline.toNumber(),
-                amountCollected: ethers.utils.formatEther(campaign.amountCollected.toString()),
+                amountCollected: ethers.formatEther(campaign.amountCollected.toString()),
                 pId: i,
             }));
         } catch (error) {
@@ -66,11 +71,12 @@ export const CrowdFundingProvider = ({ children }) => {
             return [];
         }
     };
+    
 
     // Fetch campaigns of the current user
     const getUserCampaigns = async () => {
         try {
-            const provider = new ethers.provider.JsonRpcProvider();
+            const provider = new ethers.JsonRpcProvider("https://eth-sepolia.g.alchemy.com/v2/Lo87KWizL62fSIBcI43XrftyX8Q9Pdc7");
             const contract = fetchContract(provider);
             const allCampaigns = await contract.getCampaigns();
 
@@ -83,9 +89,9 @@ export const CrowdFundingProvider = ({ children }) => {
                 owner: campaign.owner,
                 title: campaign.title,
                 description: campaign.description,
-                target: ethers.utils.formatEther(campaign.target.toString()),
+                target: ethers.formatEther(campaign.target.toString()),
                 deadline: campaign.deadline.toNumber(),
-                amountCollected: ethers.utils.formatEther(campaign.amountCollected.toString()),
+                amountCollected: ethers.formatEther(campaign.amountCollected.toString()),
                 pId: i,
             }));
         } catch (error) {
@@ -99,12 +105,12 @@ export const CrowdFundingProvider = ({ children }) => {
         try {
             const web3Modal = new Web3Modal();
             const connection = await web3Modal.connect();
-            const provider = new ethers.providers.Web3Provider(connection);
-            const signer = provider.getSigner();
+            const provider = new ethers.BrowserProvider(connection);
+            const signer = await provider.getSigner();
             const contract = fetchContract(signer);
 
             const transaction = await contract.donateToCampaign(pId, {
-                value: ethers.utils.parseEther(amount),
+                value: ethers.parseEther(amount), // ethers.utils.parseEther(amount) for v5
             });
 
             await transaction.wait();
@@ -118,14 +124,14 @@ export const CrowdFundingProvider = ({ children }) => {
     // Fetch donations for a campaign
     const getDonations = async (pId) => {
         try {
-            const provider = new ethers.providers.JsonRpcProvider();
+            const provider = new ethers.JsonRpcProvider("https://eth-sepolia.g.alchemy.com/v2/Lo87KWizL62fSIBcI43XrftyX8Q9Pdc7");
             const contract = fetchContract(provider);
             const donations = await contract.getDonators(pId);
             const numberOfDonations = donations[0].length;
 
             return donations[0].map((donator, i) => ({
                 donator,
-                donations: ethers.utils.formatEther(donations[1][i].toString()),
+                donations: ethers.formatEther(donations[1][i].toString()),
             }));
         } catch (error) {
             console.error("Error fetching donations:", error);
