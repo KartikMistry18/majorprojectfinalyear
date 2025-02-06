@@ -8,6 +8,10 @@ const SEPOLIA_ALCHEMY_URL = "https://eth-sepolia.g.alchemy.com/v2/Lo87KWizL62fSI
 
 // Helper function to fetch contract instance
 const fetchContract = (signerOrProvider) => {
+    console.log("crowdfunding address : ", CrowdFundingAddress);
+    console.log("crowdfunding ABI  : ", CrowdFundingABI);
+    console.log("Signer  : ", signerOrProvider);
+
     return new ethers.Contract(CrowdFundingAddress, CrowdFundingABI, signerOrProvider);
 };
 
@@ -27,6 +31,7 @@ export const CrowdFundingProvider = ({ children }) => {
             const provider = new ethers.BrowserProvider(connection);
             const signer = await provider.getSigner();
             const contract = fetchContract(signer);
+            console.log("contract", contract)
 
             console.log("Connected account:", currentAccount);
 
@@ -49,14 +54,35 @@ export const CrowdFundingProvider = ({ children }) => {
     const getCampaigns = async () => {
         try {
             const provider = new ethers.JsonRpcProvider(SEPOLIA_ALCHEMY_URL);
-            const contract = new ethers.Contract(CrowdFundingAddress, CrowdFundingABI, provider);
-    
-            const campaigns = await contract.getCampaigns(); // Fetch campaigns
-            if (!campaigns || campaigns.length === 0) {
-                console.warn("No campaigns found or contract not responding correctly.");
+            
+            // Verify provider is connected
+            const network = await provider.getNetwork();
+            console.log("Connected to network:", network.name);
+            console.log("Using contract address:", CrowdFundingAddress);
+            
+            // Check if the address is valid
+            if (!ethers.isAddress(CrowdFundingAddress)) {
+                throw new Error('Invalid contract address format');
+            }
+
+            // Get contract code
+            const code = await provider.getCode(CrowdFundingAddress);
+            console.log("Contract code at address:", code);
+
+            if (code === '0x') {
+                throw new Error(`No contract deployed at address ${CrowdFundingAddress}`);
+            }
+
+            const contract = fetchContract(provider);
+            const campaigns = await contract.getCampaigns();
+            
+            console.log("Raw campaigns data:", campaigns);
+            
+            if (!Array.isArray(campaigns)) {
+                console.log("Campaigns is not an array:", campaigns);
                 return [];
             }
-    
+
             return campaigns.map((campaign, i) => ({
                 owner: campaign.owner,
                 title: campaign.title,
@@ -67,16 +93,18 @@ export const CrowdFundingProvider = ({ children }) => {
                 pId: i,
             }));
         } catch (error) {
-            console.error("Error fetching campaigns:", error);
+            console.error("Detailed error in getCampaigns:");
+            console.error("Error name:", error.name);
+            console.error("Error message:", error.message);
+            if (error.data) console.error("Error data:", error.data);
             return [];
         }
     };
-    
 
     // Fetch campaigns of the current user
     const getUserCampaigns = async () => {
         try {
-            const provider = new ethers.JsonRpcProvider("https://eth-sepolia.g.alchemy.com/v2/Lo87KWizL62fSIBcI43XrftyX8Q9Pdc7");
+            const provider = new ethers.JsonRpcProvider(SEPOLIA_ALCHEMY_URL);
             const contract = fetchContract(provider);
             const allCampaigns = await contract.getCampaigns();
 
@@ -124,7 +152,7 @@ export const CrowdFundingProvider = ({ children }) => {
     // Fetch donations for a campaign
     const getDonations = async (pId) => {
         try {
-            const provider = new ethers.JsonRpcProvider("https://eth-sepolia.g.alchemy.com/v2/Lo87KWizL62fSIBcI43XrftyX8Q9Pdc7");
+            const provider = new ethers.JsonRpcProvider(SEPOLIA_ALCHEMY_URL);
             const contract = fetchContract(provider);
             const donations = await contract.getDonators(pId);
             const numberOfDonations = donations[0].length;
