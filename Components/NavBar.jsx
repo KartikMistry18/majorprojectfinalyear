@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { CrowdFundingContext } from "../Context/CrowdFunding"; // Fixed spelling
 import { Logo, Menu } from "../Components/index";
+import Link from "next/link"; // Import Link for routing
 
 const NavBar = () => {
   const { currentAccount, connectWallet } = useContext(CrowdFundingContext);
@@ -27,14 +28,14 @@ const NavBar = () => {
             <ul className="hidden lg:flex items-center space-x-8">
               {menuList.map((el, i) => (
                 <li key={i}>
-                  <a
-                    href="/"
+                  <Link
+                    href={`/${el.toLowerCase().replace(" ", "")}`} // Dynamically generate the href
                     aria-label={el}
                     title={el}
                     className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
                   >
                     {el}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -105,14 +106,14 @@ const NavBar = () => {
                     <ul className="space-y-4">
                       {menuList.map((el, i) => (
                         <li key={i}>
-                          <a
-                            href="/"
+                          <Link
+                            href={`/${el.toLowerCase().replace(" ", "")}`}
                             aria-label={el}
                             title={el}
                             className="font-medium tracking-wide text-gray-700 transition-colors duration-200 hover:text-purple-600"
                           >
                             {el}
-                          </a>
+                          </Link>
                         </li>
                       ))}
                       <li>
