@@ -1,1 +1,71 @@
+const campaignsCount = await crowdfunding.numberof
+const campaignsCount = await crowdfunding.numberofconsole.log(campaignsCount.toString());
+console.log(campaignsCount.toString());
+console.log("Campaign created!");
+await tx.wait();
+);
+  Math.floor(Date.now() / 1000) + 86400 // Deadline (1 day from now)
+  100, // Target amount (example)
+  "This is a test crowdfunding campaign",
+  "0x5f4392b98d2ffCC187D94679BB05Ac8af4De826d",    "Test Campaign",
+const tx = await crowdfunding.createCampaign(
+console.log(campaignsCount.toString());
+const campaignsCount = await crowdfunding.numberofCampaigns();
+console.log(crowdfunding.address);
+const crowdfunding = await ethers.getContractAt("CrowdFunding", "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6");
+const { ethers } = require("hardhat");
+.exit  # (or press Ctrl + D to exit)
+const campaignsCount = await crowdfunding.numberofconsole.log(campaignsCount.toString());
+const CrowdFunding = await ethers.getContractFactory("CrowdFunding");
+const CrowdFunding = await ethers.getContractFactory
+ethers
+console.log(crowdfundingInstance.address);
+const crowdfundingInstance = await CrowdFunding.at
+const crowdfunding = await CrowdFunding.attach("0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6");
+console.log("Contract Address:", crowdfunding.addr
+console.log("Contract Address:", crowdfunding.address);
+const crowdfunding = await CrowdFunding.attach("0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6");
+const CrowdFunding = await ethers.getContractFactory
+console.log("Total campaigns:", totalCampaigns.toString
+const totalCampaigns = await crowdfunding.numberofCampaigns
+const campaignsCount = await crowdfunding.numberofCampaigns();
+await crowdfunding.donateToCampaign(0, { value: ethers.utils.parseEther("0.01") });
+);
+  Math.floor(Date.now() / 1000) + 604800 // Deadline (1 week from now in UNIX timestamp)
+  100000, // Target Amount (in smallest unit of ETH)
+  "Raising funds to build a school in a rural area.", // Description
+  "Help Build a School", // Campaign Title
+  "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266", // Owner Address
+await crowdfunding.createCampaign(
+console.log("Total campaigns:", campaignsCount.toString
+const campaignsCount = await crowdfunding.numberofCampaigns();
+console.log("Contract deployed at:", crowdfunding.
+await crowdfunding.deployed();
+const crowdfunding = await CrowdFunding.deploy();
+const CrowdFunding = await ethers.getContractFactory("CrowdFunding");
+await crowdfunding.deployed();console.log("Contract deployed at:", crowdfunding.address);
+wdFunding.deploy();
+const CrowdFunding = await ethers.getContractFactoconst crowdfunding = await Cro
+console.log("Contract deployed at:", crowdfunding.address);
+await crowdfunding.deployed();
+const CrowdFunding = await ethers.getContractFactoconst crowdfunding = await CrowdFunding.deploy();
+exit
+npx hardhat run scripts/deploy.js --network localhost
+    donators[_}
+    campaigns[_id].amountCollected += msg.value;
+    require(msg.value > 0, "Donation must be greater than zero");
+    require(_id < numberofCampaigns, "Campaign does not exist");
+console.log(await ethers.provider.getBalance("0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"));
+await CrowdFunding.getCampaign(0);
+// Fetch campaign details
+await CrowdFunding.donateToCampaign(0, { value: ethers.utils.parseEther("1") });
+// Donate to a campaign
+await CrowdFunding.getCampaigns();
+// Get all campaigns
+await CrowdFunding
+// Create a campaign
+const CrowdFunding = await ethers.getContractAt("CrowdFunding", "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9");
+console.log(CrowdFunding);
+const CrowdFunding = await ethers.getContractAt("CrowdFunding", "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0");
+asasa
 getCampaigns
