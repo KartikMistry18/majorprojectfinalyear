@@ -39,11 +39,11 @@ const Hero = ({ titleData, createCampaign }) => {
           <div className="flex flex-col items-center justify-between xl:flex-row">
             <div className="w-full max-w-xl mb-12 xl:mb-0 xl:pr-16 xl:w-7/12">
               <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold tracking-tight text-white sm:text-5xl sm:leading-none">
-                Crypto King <br className="hidden md:block" /> CrowdFunding CK
+                DecentRaise
+                <br className="hidden md:block" />
               </h2>
               <p className="max-w-xl mb-4 text-base text-gray-200 md:text-lg">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam
-                cumque, autem corporis exercitationem ut dicta.
+                A Decentralised Crowdfunding Application Using Blockchain
               </p>
               <a
                 href="/"

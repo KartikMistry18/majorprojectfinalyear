@@ -16,13 +16,13 @@ const NavBar = () => {
           <div className="flex items-center">
             <a
               href="/"
-              aria-label="Company"
-              title="Company"
+              aria-label="DecentRaise"
+              title="DecentRaise"
               className="inline-flex items-center mr-8"
             >
               <Logo color="text-white" />
               <span className="ml-2 text-xl font-bold tracking-wide text-gray-100 uppercase">
-                Company
+                DecentRaise 
               </span>
             </a>
             <ul className="hidden lg:flex items-center space-x-8">
@@ -75,13 +75,13 @@ const NavBar = () => {
                   <div className="flex items-center justify-between mb-4">
                     <a
                       href="/"
-                      aria-label="Company"
-                      title="Company"
+                      aria-label="DecentRaise"
+                      title="DecentRaise"
                       className="inline-flex items-center"
                     >
                       <Logo color="text-black" />
                       <span className="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase">
-                        Company
+                        DecentRaise
                       </span>
                     </a>
 
