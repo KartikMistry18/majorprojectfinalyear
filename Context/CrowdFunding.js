@@ -25,6 +25,9 @@ export const CrowdFundingProvider = ({ children }) => {
         console.log("contract", contract);
 
         console.log("Connected account:", currentAccount);
+        // 🔥 Fetch updated campaign data after creation
+        const updatedCampaigns = await getCampaigns();
+        console.log(updatedCampaigns);
 
         try {
             const transaction = await contract.createCampaign(
@@ -44,12 +47,11 @@ export const CrowdFundingProvider = ({ children }) => {
     const getCampaigns = async () => {
         try {
             if (!window.ethereum) throw new Error("No Ethereum wallet found");
-            const provider = new ethers.providers.JsonRpcProvider(); // Ensure correct provider usage
-            const contract = fetchContract(provider); // Pass provider to fetchContract
+            const provider = new ethers.providers.JsonRpcProvider();
+            const contract = fetchContract(provider);
             const campaigns = await contract.getCampaigns();
 
-
-            const parsedCampaigns = campaigns.map((campaign, i) => ({
+            return campaigns.map((campaign, i) => ({
                 owner: campaign.owner,
                 title: campaign.title,
                 description: campaign.description,
@@ -58,13 +60,12 @@ export const CrowdFundingProvider = ({ children }) => {
                 amountCollected: ethers.utils.formatEther(campaign.amountCollected.toString()),
                 pId: i,
             }));
-
-            return parsedCampaigns;
         } catch (error) {
             console.error("Error fetching campaigns:", error);
-            return []; // Return empty array in case of error
+            return [];
         }
     };
+
 
     const getUserCampaigns = async () => {
         const provider = new ethers.providers.JsonRpcProvider(); // Correct provider for v5

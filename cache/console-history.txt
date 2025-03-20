@@ -1,3 +1,38 @@
+const [deployer, user1, user2] = await hre.ethers.getSigners();
+const hre = require("hardhat");
+const [deployer, user1, user2] = await ethers.getSigners();
+console.log("First Campaign Details:", campaign1);
+const campaign1 = await contract.campaigns(0);
+console.log("Total Campaigns:", campaignCount
+const campaignCount = await contract.numberOfCampaigns();
+);
+  Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 14  // Deadline: 14 days from now
+  ethers.utils.parseUnits("5", "ether"), 
+  "Supporting Mihir's next big tech innovation", 
+  "Tech Fund for Mihir", 
+  accounts[1], 
+await contract.createCampaign(
+);
+  Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7  // Deadline: 7 days from now
+  ethers.utils.parseUnits("2", "ether"), 
+  "A campaign to plant trees and save forests", 
+  "Save the Forests", 
+  accounts[0], 
+await contract.createCampaign(
+const CrowdFunding = await ethers.getContractFactory("CrowdFunding");
+  Math.floor(Date.now() / 1000));
+ts("2", "ether"), 
+  ethers.utils.parseUni
+  "A campaign to plant trees and save forests", 
+  accounts[0].addre  "Save the Forests", 
+await contract.createCampaign(
+const accounts = await ethers.getSigners();
+const contract = new ethers.Contract(contractAddress, abi, signer);
+const signer = provider.getSigner(0);
+const provider = new ethers.providers.JsonRpcProvider
+const contractAddress = "0x2279B7A0a67DB372996a5FaB50D91eAA73d2eBe6";
+const { abi } = require("./artifacts/contracts/CrowdFunding.sol/CrowdFunding.json");
+const ethers = require("ethers");
 const campaignsCount = await crowdfunding.numberof
 const campaignsCount = await crowdfunding.numberofconsole.log(campaignsCount.toString());
 console.log(campaignsCount.toString());
